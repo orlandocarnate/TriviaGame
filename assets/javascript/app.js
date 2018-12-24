@@ -85,10 +85,25 @@ $(document).ready(function () {
         displaySeconds: function() {
             // change time by -1
             time--;
-            $("#timer").html(timer)
+            $("#timer").html(time)
             // display time
             this.askQuestion();
 
+        },
+
+        displayQuestion: function() {
+            // display current question
+
+            // display possible answers with values for onclick events
+
+        },
+
+        checkAnswer: function(arg) {
+            // stop timer
+            clearInterval(timer);
+            // get value of clicked answer
+
+            // if answer is correct stop 
         },
 
         askQuestion: function() {
