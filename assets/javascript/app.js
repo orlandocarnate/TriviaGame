@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    var correct = 0;
+    var wrong = 0;
+    var currentQuestion = 0;
+    var maxQuestions = 5;
+
     // Trivia data. First Property is the question. Second Property is a list of possible anwsers.
     var triviaData = [
         {
@@ -51,20 +56,18 @@ $(document).ready(function () {
 
     $("#restart").hide();
 
-    function createOrderedIndex() {
-        for (var i=0; i < triviaData.length; i++) {
-            shuffledIndex.push(i);
-        }
-        console.log(shuffledIndex);
-    }
-
-    createOrderedIndex();
-
     var game = {
         // Fisher-Yates Shuffle Algorithm
         
         shuffle: function() {
             console.log("Current:", shuffledIndex);
+            // create an array with item numbers based on length of trivia data
+            for (var i=0; i < triviaData.length; i++) {
+                shuffledIndex.push(i);
+            }
+            console.log("Shuffled: ",shuffledIndex);
+
+
             // gets the length 
             var randomIndex;
             var tempItem;
@@ -82,19 +85,27 @@ $(document).ready(function () {
             console.log("Result:",shuffledIndex);
         },
 
-        displaySeconds: function() {
-            // change time by -1
-            time--;
-            $("#timer").html(time)
-            // display time
-            this.askQuestion();
+        // displaySeconds: function() {
+        //     // change time by -1
+        //     time--;
+        //     $("#timer").html(time)
+        //     // display time
+        //     this.askQuestion();
 
-        },
+        // },
 
         displayQuestion: function() {
-            // display current question
+            var currentTrivia = triviaData[shuffledIndex[currentQuestion]];
+            console.log(currentTrivia);
+            $("#question").text(currentTrivia.question);
 
-            // display possible answers with values for onclick events
+            for (var i=0; i < currentTrivia.answers.length; i++) {
+                console.log(currentTrivia.answers[i]);
+                answerID = "answer" + i;
+                var answerListItem = $("<li/>", {"id": answerID, text: currentTrivia.answers[i]});
+                $("#answers").append(answerListItem);
+            }
+            //display possible answers with values for onclick events
 
         },
 
@@ -103,22 +114,41 @@ $(document).ready(function () {
             clearInterval(timer);
             // get value of clicked answer
 
-            // if answer is correct stop 
+            // if answer is correct 
+            if (currentTrivia.answer === $(this).attr("id")) {
+                // tell player is correct and add to correct counter.
+                correct++;
+            } else {
+                // tell player is wrong and add to wrong counter.
+                wrong++;
+            }
+
+            // play next question after 5 seconds
         },
 
         askQuestion: function() {
-            
-            var timer = setInterval(countdown, 1000);
-            
-            function countdown() {
-              if (time == 0) {
-                clearTimeout(timer);
-                // Next Step
-              } else {
-                $("#timer").html(time)
-                time--;
-              }
+            if (currentQuestion < maxQuestions) {
+
+                currentQuestion++;
+                game.displayQuestion();
+                // hide start
+                $("#start").hide();
+    
+                var timer = setInterval(countdown, 1000);
+                
+                function countdown() {
+                  if (time === 5) {
+                    clearTimeout(timer);
+                    // Next Step
+                  } else {
+                    $("#timer").html(time)
+                    time--;
+                  }
+                }
+            } else {
+                // goto end
             }
+
 
         },
 
@@ -130,5 +160,9 @@ $(document).ready(function () {
 
     }
 
+    // shuffle the trivia
+    game.shuffle();
+
+    // event listeners
     $("#start").click(game.askQuestion);
 })
