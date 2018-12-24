@@ -4,6 +4,8 @@ $(document).ready(function () {
     var currentQuestion = 0;
     var maxQuestions = 5;
 
+    var timer;
+
     // Trivia data. First Property is the question. Second Property is a list of possible anwsers.
     var triviaData = [
         {
@@ -102,25 +104,28 @@ $(document).ready(function () {
             for (var i=0; i < currentTrivia.answers.length; i++) {
                 console.log(currentTrivia.answers[i]);
                 answerID = "answer" + i;
-                var answerListItem = $("<li/>", {"id": answerID, text: currentTrivia.answers[i]});
+                var answerListItem = $("<div/>", {"class": "answer", "value": answerID, text: currentTrivia.answers[i]});
                 $("#answers").append(answerListItem);
             }
             //display possible answers with values for onclick events
 
         },
 
-        checkAnswer: function(arg) {
+        checkAnswer: function() {
             // stop timer
+
             clearInterval(timer);
             // get value of clicked answer
 
             // if answer is correct 
-            if (currentTrivia.answer === $(this).attr("id")) {
+            if (currentTrivia.answer === $(this).val()) {
                 // tell player is correct and add to correct counter.
                 correct++;
+                alert("Correct: ", $(this).attr("id"))
             } else {
                 // tell player is wrong and add to wrong counter.
                 wrong++;
+                alert("You clicked " + $(this).val() + ", should be " + currentTrivia.answer)
             }
 
             // play next question after 5 seconds
@@ -134,7 +139,7 @@ $(document).ready(function () {
                 // hide start
                 $("#start").hide();
     
-                var timer = setInterval(countdown, 1000);
+                timer = setInterval(countdown, 1000);
                 
                 function countdown() {
                   if (time === 5) {
@@ -164,5 +169,14 @@ $(document).ready(function () {
     game.shuffle();
 
     // event listeners
-    $("#start").click(game.askQuestion);
+    $("#start").click(function() {
+        game.askQuestion();
+    });
+
+    $(".answer").on("click", function() {
+        alert("Clicked");
+        // $(this).game.checkAnswer();
+    });
+
+
 })
