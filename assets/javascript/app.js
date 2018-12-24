@@ -47,7 +47,7 @@ $(document).ready(function () {
     var startTimer;
 
     // set timer in seconds
-    var timer = 30;
+    var time = 30;
 
     $("#restart").hide();
 
@@ -82,34 +82,28 @@ $(document).ready(function () {
             console.log("Result:",shuffledIndex);
         },
 
-        askQuestion: function() {
-            // loop through 5 total questions
-            for (q = 0; q < 4; q++) {
-                // display question and answers
-
-                // start timer loop
-                for (var sec = 30; sec > 0; sec--) {
-                    setInterval(this.displaySeconds, 1000)
-                }
-                
-                // if timer is > 0 
-
-                    // if answer is correct
-
-                    // else show incorrect
-
-            }
-
-            // show tally
-
-            // show restart button
+        displaySeconds: function() {
+            // change time by -1
+            time--;
+            $("#timer").html(timer)
+            // display time
+            this.askQuestion();
 
         },
 
-        displaySeconds: function() {
-            // change time by -1
-            timer--;
-            // display time
+        askQuestion: function() {
+            
+            var timer = setInterval(countdown, 1000);
+            
+            function countdown() {
+              if (time == 0) {
+                clearTimeout(timer);
+                // Next Step
+              } else {
+                $("#timer").html(time)
+                time--;
+              }
+            }
 
         },
 
@@ -120,4 +114,6 @@ $(document).ready(function () {
         }
 
     }
+
+    $("#start").click(game.askQuestion);
 })
