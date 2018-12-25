@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+        <progress value="0" max="10" id="progressBar"></progress>
+    <script>
+        var timeleft = 10;
+        var downloadTimer = setInterval(function(){
+        document.getElementById("progressBar").value = 10 - --timeleft;
+        if(timeleft <= 0)
+            clearInterval(downloadTimer);
+        },1000);
+        
+    </script>
+</body>
+</html>

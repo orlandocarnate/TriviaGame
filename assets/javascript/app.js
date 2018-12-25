@@ -39,7 +39,7 @@ $(document).ready(function () {
         {
             question: "What is...Q4",
             answers: ["answer0", "answer1", "answer2", "answer3"],
-            answer: 4,
+            answer: 0,
             pic: "pic.jpg"
         },
         {
@@ -56,6 +56,7 @@ $(document).ready(function () {
 
     $("#restart").hide();
     $("#endtext").hide();
+    $("#time-remaining").hide();
 
     function shuffle() {
         // reset shuffledIndex array
@@ -114,11 +115,16 @@ $(document).ready(function () {
         } else {
             // tell player is wrong and add to wrong counter.
             wrong++;
-            alert("You clicked " + arg + ", should be " + currentTrivia.answer)
+            $("#question").text("Wrong Answer.");
+            $("#answers").text("The correct answer is " + currentTrivia.answer)
         }
 
-        // play next question after 5 seconds
-        askQuestion();
+            // display next question after 5 seconds.
+            setTimeout(askQuestion, 5000);
+    }
+
+    function wrongAnswer(){
+        
     }
 
     function askQuestion() {
@@ -146,22 +152,30 @@ $(document).ready(function () {
 
     // create timer function
     function startTimer(time) {
+        $("#time-remaining").show();
         $("#timer").html(time + " Seconds")
-        timer = setInterval(countdown, 1000);
-
-        function countdown() {
-            time--;
-            if (time < 0) {
+        timer = setInterval(function () {
+            --time;
+            $("#timer").html(time + " Seconds")
+            if (time <= 0) {
             clearTimeout(timer);
-            alert("Times up!")
+
+            console.log("Times up!")
             // currentQuestion++;
             unanswered++;
-            setTimeout(askQuestion(), 3000);
-            // Next Step
-            } else {
             $("#timer").html(time + " Seconds")
+
+            // show correct answer
+            $("#question").text("Times Up!");
+            $("#answers").text("The correct answer is " + currentTrivia.answer)
+
+            // display next question after 5 seconds.
+            setTimeout(askQuestion, 5000);
             }
-        }
+        }, 1000);
+        
+
+
     }
 
     function restartGame() {
@@ -171,6 +185,11 @@ $(document).ready(function () {
         unanswered = 0;
         currentQuestion = 0;
         currentTrivia = 0;
+
+        // hide button
+        $("#restart").hide();
+
+
         shuffle();
         askQuestion();
 
@@ -178,7 +197,7 @@ $(document).ready(function () {
 
     function endGame() {
         // clear all elements
-        $("#time-remaining").empty();
+        $("#time-remaining").hide();
 
         // display final tally
         $("#endtext").show();

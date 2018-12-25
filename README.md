@@ -38,3 +38,8 @@ A trivia game that shows only one question until the player answers it or their 
     * EX: 
         * `$("#answers").on("click", ".answer", function() {...})`
 
+
+## Media 
+
+* [8-Bit Harry Potter](http://www.doctoroctoroc.com/8-bit-harry-potter.php) soundtrack from [Doctor Octoroc](http://www.doctoroctoroc.com)
+

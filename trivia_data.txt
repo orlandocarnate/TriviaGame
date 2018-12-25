@@ -1,0 +1,39 @@
+    var triviaData = [
+        {
+            question: "What is...Q0",
+            answers: ["answer0", "answer1", "answer2", "answer3"],
+            answer: 0,
+            pic: "pic.jpg"
+        },
+        {
+            question: "What is...Q1",
+            answers: ["answer0", "answer1", "answer2", "answer3"],
+            answer: 1,
+            pic: "pic.jpg"
+        },
+        {
+            question: "What is...Q2",
+            answers: ["answer0", "answer1", "answer2", "answer3"],
+            answer: 2,
+            pic: "pic.jpg"
+        },
+        {
+            question: "What is...Q3",
+            answers: ["answer0", "answer1", "answer2", "answer3"],
+            answer: 3,
+            pic: "pic.jpg"
+        },
+        {
+            question: "What is...Q4",
+            answers: ["answer0", "answer1", "answer2", "answer3"],
+            answer: 4,
+            pic: "pic.jpg"
+        },
+        {
+            question: "What is...Q5",
+            answers: ["answer0", "answer1", "answer2", "answer3"],
+            answer: 1,
+            pic: "pic.jpg"
+        },
+
+    ];
