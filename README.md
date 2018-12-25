@@ -34,4 +34,7 @@ A trivia game that shows only one question until the player answers it or their 
 
 ## Programmer's Notes
 * On Click events do not work on dynamically created elements
+    * Use .on() with already existing parent elements and reference the id or class
+    * EX: 
+        * `$("#answers").on("click", ".answer", function() {...})`
 

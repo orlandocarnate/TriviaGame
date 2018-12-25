@@ -2,11 +2,13 @@
 $(document).ready(function () {
     var correct = 0;
     var wrong = 0;
+    var unanswered = 0;
     var currentQuestion = 0;
     var maxQuestions = 5;
     var currentTrivia;
 
     var timer;
+    var maxtime = 5;
 
     // Trivia data. First Property is the question. Second Property is a list of possible anwsers.
     var triviaData = [
@@ -52,15 +54,12 @@ $(document).ready(function () {
     // create empty array for the shuffled indexes
     var shuffledIndex = [];
 
-    // create timer variable
-    var startTimer;
-
-    // set timer in seconds
-    var time = 30;
-
     $("#restart").hide();
+    $("#endtext").hide();
 
     function shuffle() {
+        // reset shuffledIndex array
+        shuffledIndex = [];
         console.log("Current:", shuffledIndex);
         // create an array with item numbers based on length of trivia data
         for (var i=0; i < triviaData.length; i++) {
@@ -119,9 +118,15 @@ $(document).ready(function () {
         }
 
         // play next question after 5 seconds
+        askQuestion();
     }
 
     function askQuestion() {
+        // clear any generated elements with empty() method
+        $("#question").empty();
+        $("#answers").empty();
+        $("#endtext").hide();
+
         if (currentQuestion < maxQuestions) {
 
             currentQuestion++;
@@ -129,28 +134,62 @@ $(document).ready(function () {
             // hide start
             $("#start").hide();
 
-            timer = setInterval(countdown, 1000);
-            
-            function countdown() {
-              if (time === 5) {
-                clearTimeout(timer);
-                // Next Step
-              } else {
-                $("#timer").html(time)
-                time--;
-              }
-            }
+            startTimer(maxtime);
+
         } else {
-            // goto end
+            // goto endGame
+            endGame();
         }
 
 
     }
 
+    // create timer function
+    function startTimer(time) {
+        $("#timer").html(time + " Seconds")
+        timer = setInterval(countdown, 1000);
+
+        function countdown() {
+            time--;
+            if (time < 0) {
+            clearTimeout(timer);
+            alert("Times up!")
+            // currentQuestion++;
+            unanswered++;
+            setTimeout(askQuestion(), 3000);
+            // Next Step
+            } else {
+            $("#timer").html(time + " Seconds")
+            }
+        }
+    }
+
     function restartGame() {
-        // restart variables
-        
-        // empty elements using jQuery
+        // clear any generated elements with empty() method
+        correct = 0;
+        wrong = 0;
+        unanswered = 0;
+        currentQuestion = 0;
+        currentTrivia = 0;
+        shuffle();
+        askQuestion();
+
+    }
+
+    function endGame() {
+        // clear all elements
+        $("#time-remaining").empty();
+
+        // display final tally
+        $("#endtext").show();
+
+        $("#correct").text(correct);
+        $("#wrong").text(wrong);
+        $("#unanswered").text(unanswered);
+
+        // display restart button
+        $("#restart").show();
+
     }
 
 
@@ -160,6 +199,10 @@ $(document).ready(function () {
     // event listeners
     $("#start").click(function() {
         askQuestion();
+    });
+
+    $("#restart").click(function() {
+        restartGame();
     });
 
     $("#answers").on('click', '.answer', function() {
