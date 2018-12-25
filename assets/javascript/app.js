@@ -4,6 +4,7 @@ $(document).ready(function () {
     var wrong = 0;
     var currentQuestion = 0;
     var maxQuestions = 5;
+    var currentTrivia;
 
     var timer;
 
@@ -11,38 +12,38 @@ $(document).ready(function () {
     var triviaData = [
         {
             question: "What is...Q0",
-            answers: ["answer1", "answer2", "answer3", "answer4"],
-            answer: "A",
+            answers: ["answer0", "answer1", "answer2", "answer3"],
+            answer: 0,
             pic: "pic.jpg"
         },
         {
             question: "What is...Q1",
-            answers: ["answer1", "answer2", "answer3", "answer4"],
-            answer: "A",
+            answers: ["answer0", "answer1", "answer2", "answer3"],
+            answer: 1,
             pic: "pic.jpg"
         },
         {
             question: "What is...Q2",
-            answers: ["answer1", "answer2", "answer3", "answer4"],
-            answer: "A",
+            answers: ["answer0", "answer1", "answer2", "answer3"],
+            answer: 2,
             pic: "pic.jpg"
         },
         {
             question: "What is...Q3",
-            answers: ["answer1", "answer2", "answer3", "answer4"],
-            answer: "A",
+            answers: ["answer0", "answer1", "answer2", "answer3"],
+            answer: 3,
             pic: "pic.jpg"
         },
         {
             question: "What is...Q4",
-            answers: ["answer1", "answer2", "answer3", "answer4"],
-            answer: "A",
+            answers: ["answer0", "answer1", "answer2", "answer3"],
+            answer: 4,
             pic: "pic.jpg"
         },
         {
             question: "What is...Q5",
-            answers: ["answer1", "answer2", "answer3", "answer4"],
-            answer: "A",
+            answers: ["answer0", "answer1", "answer2", "answer3"],
+            answer: 1,
             pic: "pic.jpg"
         },
 
@@ -86,35 +87,35 @@ $(document).ready(function () {
     }
 
     function displayQuestion() {
-        var currentTrivia = triviaData[shuffledIndex[currentQuestion]];
+        currentTrivia = triviaData[shuffledIndex[currentQuestion]];
         console.log(currentTrivia);
         $("#question").text(currentTrivia.question);
 
         for (var i=0; i < currentTrivia.answers.length; i++) {
             console.log(currentTrivia.answers[i]);
-            answerID = "answer" + i;
-            var answerListItem = $("<div/>", {"class": "answer", "value": answerID, text: currentTrivia.answers[i]});
+            answerID = i;
+            var answerListItem = $("<div/>", {"class": "answer", "value": i, text: currentTrivia.answers[i]});
             $("#answers").append(answerListItem);
         }
         //display possible answers with values for onclick events
 
     }
 
-    function checkAnswer() {
+    function checkAnswer(arg) {
         // stop timer
 
         clearInterval(timer);
         // get value of clicked answer
 
         // if answer is correct 
-        if (currentTrivia.answer === $(this).val()) {
+        if (currentTrivia.answer === parseInt(arg)) {
             // tell player is correct and add to correct counter.
             correct++;
-            alert("Correct: ", $(this).attr("id"))
+            alert("Correct")
         } else {
             // tell player is wrong and add to wrong counter.
             wrong++;
-            alert("You clicked " + $(this).val() + ", should be " + currentTrivia.answer)
+            alert("You clicked " + arg + ", should be " + currentTrivia.answer)
         }
 
         // play next question after 5 seconds
@@ -161,9 +162,9 @@ $(document).ready(function () {
         askQuestion();
     });
 
-    $(document).on('click', '.answer', function() {
-        alert("Clicked");
-        // $(this).game.checkAnswer();
+    $("#answers").on('click', '.answer', function() {
+        alert($(this).attr("value"));
+        checkAnswer($(this).attr("value"));
     });
 
 
