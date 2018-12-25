@@ -32,4 +32,6 @@ A trivia game that shows only one question until the player answers it or their 
 * Start Over button is shown.
 * When Start Over button is clicked, the game restarts without refreshing the page.
 
+## Programmer's Notes
+* On Click events do not work on dynamically created elements
 
