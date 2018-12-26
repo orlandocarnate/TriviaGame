@@ -101,8 +101,7 @@ $(document).ready(function () {
 
     function checkAnswer(arg) {
         // stop timer
-
-        clearInterval(timer);
+        // clearInterval(timer);
         // get value of clicked answer
 
         // if answer is correct 
@@ -115,10 +114,6 @@ $(document).ready(function () {
             // display pic
             var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
             $("#picAnswer").append(answerPic);
-
-
-            // display next question after 5 seconds.
-            setTimeout(askQuestion, 5000);
         } else {
             // tell player is wrong and add to wrong counter.
             wrong++;
@@ -132,10 +127,6 @@ $(document).ready(function () {
 
             // display next question after 5 seconds.
             setTimeout(askQuestion, 5000);
-    }
-
-    function wrongAnswer(){
-        
     }
 
     function askQuestion() {
@@ -152,7 +143,8 @@ $(document).ready(function () {
             // hide start
             $("#start").hide();
 
-            startTimer(maxtime);
+            startTimer();
+
 
         } else {
             // goto endGame
@@ -163,54 +155,36 @@ $(document).ready(function () {
     }
 
     // create timer function
-    function startTimer(time) {
+    function startTimer() {
+        var time = 5;
         $("#time-remaining").show();
         $("#timer").html("Time left: " + time + " seconds")
-        timer = setInterval(function () {
-            --time;
+        timer = window.setInterval(function () {
+            time--;
+            console.log("time:", time);
+            console.log("Current Q: ", currentQuestion);
             $("#timer").html("Time left: " + time + " seconds");
             if (time <= 0) {
-            clearTimeout(timer);
+                time = 5;
+                window.clearInterval(timer);
 
-            console.log("Times up!")
-            // currentQuestion++;
-            unanswered++;
-            $("#timer").html("Time left: " + time + " seconds")
+                unanswered++;
+                $("#timer").html("Time left: " + time + " seconds")
 
-            // show correct answer
-            $("#question").text("Times Up!");
-            $("#answers").html('The correct answer is <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"<strong></h4>')
+                // show correct answer
+                $("#question").text("Times Up!");
+                $("#answers").html('The correct answer is <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"<strong></h4>')
 
-            // display pic
-            var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
-            $("#picAnswer").append(answerPic);
+                // display pic
+                var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
+                $("#picAnswer").append(answerPic);
 
-            // display next question after 5 seconds.
-            setTimeout(askQuestion, 5000);
+                // display next question after 5 seconds.
+                setTimeout(askQuestion, 5000);
             }
+
         }, 1000);
-    }
 
-    // create next questiontimer function
-    function nextTimer(time) {
-        $("#time-remaining").show();
-
-        if (currentQuestion < maxQuestions) {
-            // show next question timer
-            $("#timer").html("Next Question in " + time + " seconds");
-
-        } else {
-            // show end game timer
-            $("#timer").html("Your score in " + time + " seconds");
-        }
-
-        timer = setInterval(function () {
-            --time;
-            $("#timer").html("Next Question in " + time + " Seconds")
-            if (time <= 0) {
-                endGame();
-            }
-        }, 1000);
     }
 
     function restartGame() {
@@ -261,6 +235,7 @@ $(document).ready(function () {
 
     $("#answers").on('click', '.answer', function() {
         // alert($(this).attr("value"));
+        window.clearInterval(timer);
         checkAnswer($(this).attr("value"));
     });
 
