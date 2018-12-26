@@ -3,12 +3,11 @@ $(document).ready(function () {
     var correct = 0;
     var wrong = 0;
     var unanswered = 0;
-    var currentQuestion = 0;
-    var maxQuestions = 4;
-    var currentTrivia;
-
+    var currentQuestionIndex = 0;
+    var maxQuestions = 5;
     var timer;
-    var maxtime = 5;
+    var maxtime = 10;
+    var currentTrivia;
 
     // Trivia data. First Property is the question. Second Property is a list of possible anwsers.
     var triviaData = [
@@ -84,8 +83,10 @@ $(document).ready(function () {
     }
 
     function displayQuestion() {
-        currentTrivia = triviaData[shuffledIndex[currentQuestion]];
-        console.log("Current Question: ", currentQuestion);
+        currentTrivia = triviaData[shuffledIndex[currentQuestionIndex]];
+        console.log("Current Q number: ", currentQuestionIndex);
+        console.log("Current Trivia data:",currentTrivia);
+        console.log("Current Q", currentTrivia.question);
         console.log(currentTrivia);
         $("#question").text(currentTrivia.question);
 
@@ -136,10 +137,9 @@ $(document).ready(function () {
         $("#endtext").hide();
         $("#picAnswer").empty();
 
-        if (currentQuestion < maxQuestions) {
-
-            currentQuestion++;
+        if (currentQuestionIndex < maxQuestions) {
             displayQuestion();
+            currentQuestionIndex++;
             // hide start
             $("#start").hide();
 
@@ -156,16 +156,15 @@ $(document).ready(function () {
 
     // create timer function
     function startTimer() {
-        var time = 5;
+        var time = maxtime;
         $("#time-remaining").show();
         $("#timer").html("Time left: " + time + " seconds")
         timer = window.setInterval(function () {
             time--;
             console.log("time:", time);
-            console.log("Current Q: ", currentQuestion);
+            console.log("Current Q: ", currentQuestionIndex);
             $("#timer").html("Time left: " + time + " seconds");
             if (time <= 0) {
-                time = 5;
                 window.clearInterval(timer);
 
                 unanswered++;
@@ -192,7 +191,7 @@ $(document).ready(function () {
         correct = 0;
         wrong = 0;
         unanswered = 0;
-        currentQuestion = 0;
+        currentQuestionIndex = 0;
         currentTrivia = 0;
 
         // hide button
