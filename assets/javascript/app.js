@@ -6,6 +6,7 @@ $(document).ready(function () {
     var currentQuestionIndex = 0;
     var maxQuestions = 5;
     var timer;
+    var transitiontimer;
     var maxtime = 10;
     var transitionTime = 5;
     var currentTrivia;
@@ -200,11 +201,7 @@ $(document).ready(function () {
     }
 
     function checkAnswer(arg) {
-        // stop timer
-        // clearInterval(timer);
-        // get value of clicked answer
-
-        // if answer is correct 
+        // if passed argument is equal to the answer
         if (currentTrivia.answer === parseInt(arg)) {
             // tell player is correct and add to correct counter.
             correct++;
@@ -225,8 +222,8 @@ $(document).ready(function () {
             $("#picAnswer").append(answerPic);
         }
 
-            // display next question after 5 seconds.
-            setTimeout(askQuestion, 5000);
+            // see if this is the last question
+            isLastQuestion();
     }
 
     function askQuestion() {
@@ -259,13 +256,13 @@ $(document).ready(function () {
         var time = maxtime;
         $("#time-remaining").show();
         $("#timer").html("Time left: " + time + " seconds")
-        timer = window.setInterval(function () {
+        timer = setInterval(function () {
             time--;
             console.log("time:", time);
             console.log("Current Q: ", currentQuestionIndex);
             $("#timer").html("Time left: " + time + " seconds");
             if (time <= 0) {
-                window.clearInterval(timer);
+                clearInterval(timer);
 
                 unanswered++;
                 $("#timer").html("Time left: " + time + " seconds")
@@ -279,7 +276,7 @@ $(document).ready(function () {
                 $("#picAnswer").append(answerPic);
 
                 // display next question after 5 seconds.
-                setTimeout(askQuestion, 5000);
+                isLastQuestion();
             }
 
         }, 1000);
@@ -287,30 +284,34 @@ $(document).ready(function () {
     }
 
     function nextTimer() {
+        $("#transition").show();
+        console.log("nextTimer called");
         // create a transition timer
-        var time = transitionTime;
-        $("#transition-time").text(time + " seconds");
-        var transitiontimer = window.setInterval(function () {
-            time--;
-            $("#transition-time").text( time + " seconds");
-            if (time <= 0) {
-                window.clearInterval(transitiontimer);
+        var transTime = transitionTime;
+        console.log("Trans Time: ", transTime);
+        $("#transition-time").text(transTime + " seconds");
+        transitiontimer = setInterval(function () {
+            transTime--;
+            
+            $("#transition-time").text( transTime + " seconds");
+            if (transTime <= 0) {
+                clearInterval(transitiontimer);
+                askQuestion();
             }
         }, 1000)
-
     }
 
     function isLastQuestion() {
-        $("#transition").show();
+        console.log("isLastQuestion called");
+
         // if there are still questions left, tell player the next question will be in 5 seconds
         if (currentQuestionIndex < maxQuestions) {
-            $("#transition-text").text("Next Question in " + time + " seconds");
+            $("#transition-text").text("Next Question in ");
 
         } else {
-            $("#transition-text").text("Let's see your score in " + time + " seconds");
+            $("#transition-text").text("Let's see your score in ");
         }
         nextTimer();
-        askQuestion();
     }
 
     function restartGame() {
@@ -362,7 +363,7 @@ $(document).ready(function () {
 
     $("#answers").on('click', '.answer', function() {
         // alert($(this).attr("value"));
-        window.clearInterval(timer);
+        clearInterval(timer);
         checkAnswer($(this).attr("value"));
     });
 
