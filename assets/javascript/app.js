@@ -36,7 +36,7 @@ $(document).ready(function () {
             answers: ["Turns the object into stone", "Creates a high-pitched sound", "Creates bandages", "Nothing, really"],
             answer: 2,
             // pic: "https://gph.is/2eBjlIB"
-            pic: "https://media.giphy.com/media/11P6dElPROzAbu/200w_d.gif",
+            pic: "https://media.giphy.com/media/3ofT5YwE2opHvw6bQc/giphy-downsized.gif",
         },
         {
             question: "What spell opens objects?",
@@ -53,7 +53,7 @@ $(document).ready(function () {
                         "Obscuro"
                     ],
             answer: 3, // MUST BE A NUMBER FROM 0-3
-            pic: "assets/images/hp-title.gif"
+            pic: "https://media.giphy.com/media/10oAskWzsiEL8Q/giphy-downsized.gif"
         },
         {
             question: "What was Harry Potter's pet's name?",
@@ -64,7 +64,7 @@ $(document).ready(function () {
                     "Hagrid"
                     ],
             answer: 1, // MUST BE A NUMBER FROM 0-3
-            pic: "assets/images/hp-title.gif"
+            pic: "https://media.giphy.com/media/CJ3PRGEzpTzVK/giphy-downsized.gif"
         },
         {
             question: "Which of these is NOT a Deathly Hallow?",
@@ -75,7 +75,7 @@ $(document).ready(function () {
                     "Elder Wand"
                     ],
             answer: 2, // MUST BE A NUMBER FROM 0-3
-            pic: "assets/images/hp-title.gif"
+            pic: "https://media.giphy.com/media/CK4BZhVG3689O/giphy-downsized.gif"
         },
         {
             question: "What is a Thestral's Classification?",
@@ -86,7 +86,7 @@ $(document).ready(function () {
                 "XXXX"
                 ],
             answer: 3, // MUST BE A NUMBER FROM 0-3
-            pic: "assets/images/hp-title.gif"
+            pic: "https://media.giphy.com/media/f0OjjIH6I68GA/giphy-downsized.gif"
         },
         {
             question: "Who is Hagrid?",
@@ -96,8 +96,8 @@ $(document).ready(function () {
                 "A Giant", 
                 "An Executioner"
                 ],
-            answer: 3, // MUST BE A NUMBER FROM 0-3
-            pic: "assets/images/hp-title.gif"
+            answer: 2, // MUST BE A NUMBER FROM 0-3
+            pic: "https://media.giphy.com/media/5zdcxaljX66mQ/giphy-downsized.gif"
         },
         /* SPOILER
         {
@@ -109,7 +109,7 @@ $(document).ready(function () {
                 "No one"
                 ],
             answer: 1, // MUST BE A NUMBER FROM 0-3
-            pic: "past-link-here"
+            pic: "https://media.giphy.com/media/OHNvxhuOdR1te/giphy-downsized.gif"
         },
         */
         {
@@ -121,7 +121,7 @@ $(document).ready(function () {
                 "No one"
                 ],
             answer: 2, // MUST BE A NUMBER FROM 0-3
-            pic: "assets/images/hp-title.gif"
+            pic: "https://media.giphy.com/media/qEabWrZXscSTm/giphy.gif"
         },
         {
             question: "What is Felix Felicis?",
@@ -132,7 +132,7 @@ $(document).ready(function () {
                 "Potion of Luck"
                 ],
             answer: 3, // MUST BE A NUMBER FROM 0-3
-            pic: "assets/images/hp-title.gif"
+            pic: "https://media.giphy.com/media/WLXYBlFuBiuQM/giphy.giff"
         },
     
     
