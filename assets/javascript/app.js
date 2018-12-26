@@ -132,7 +132,7 @@ $(document).ready(function () {
                 "Potion of Luck"
                 ],
             answer: 3, // MUST BE A NUMBER FROM 0-3
-            pic: "https://media.giphy.com/media/WLXYBlFuBiuQM/giphy.giff"
+            pic: "https://media.giphy.com/media/WLXYBlFuBiuQM/giphy.gif"
         },
     
     
