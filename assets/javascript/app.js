@@ -44,6 +44,104 @@ $(document).ready(function () {
             answer: 1,
             pic: "https://vignette.wikia.nocookie.net/harrypotter/images/3/3e/Unlocking_charm1.gif"
         },
+        {
+            question: "What spell causes a blindfold over your eyes?",
+            answers: [
+                        "Caecusare", 
+                        "Opertis", 
+                        "Nonvidere", 
+                        "Obscuro"
+                    ],
+            answer: 3, // MUST BE A NUMBER FROM 0-3
+            pic: "assets/images/hp-title.gif"
+        },
+        {
+            question: "What was Harry Potter's pet's name?",
+            answers: [
+                    "Jerry", 
+                    "Hedwig", 
+                    "Oliver", 
+                    "Hagrid"
+                    ],
+            answer: 1, // MUST BE A NUMBER FROM 0-3
+            pic: "assets/images/hp-title.gif"
+        },
+        {
+            question: "Which of these is NOT a Deathly Hallow?",
+            answers: [
+                    "Resurrection Stone", 
+                    "Cloak of Invisibility", 
+                    "Potion of Power", 
+                    "Elder Wand"
+                    ],
+            answer: 2, // MUST BE A NUMBER FROM 0-3
+            pic: "assets/images/hp-title.gif"
+        },
+        {
+            question: "What is a Thestral's Classification?",
+            answers: [
+                "X", 
+                "XX", 
+                "XXX", 
+                "XXXX"
+                ],
+            answer: 3, // MUST BE A NUMBER FROM 0-3
+            pic: "assets/images/hp-title.gif"
+        },
+        {
+            question: "Who is Hagrid?",
+            answers: [
+                "A Spider", 
+                "An Elephant", 
+                "A Giant", 
+                "An Executioner"
+                ],
+            answer: 3, // MUST BE A NUMBER FROM 0-3
+            pic: "assets/images/hp-title.gif"
+        },
+        /* SPOILER
+        {
+            question: "Who killed Dumbledore?",
+            answers: [
+                "Voldemort", 
+                "Severus Snape", 
+                "Antonin Dolohov", 
+                "No one"
+                ],
+            answer: 1, // MUST BE A NUMBER FROM 0-3
+            pic: "past-link-here"
+        },
+        */
+        {
+            question: "Who was Severus Snape in love with?",
+            answers: [
+                "Leta Lestrange", 
+                "Molly Weasley", 
+                "Lily Potter", 
+                "No one"
+                ],
+            answer: 2, // MUST BE A NUMBER FROM 0-3
+            pic: "assets/images/hp-title.gif"
+        },
+        {
+            question: "What is Felix Felicis?",
+            answers: [
+                "Potion of Love", 
+                "Potion of Death", 
+                "Potion of Resistance", 
+                "Potion of Luck"
+                ],
+            answer: 3, // MUST BE A NUMBER FROM 0-3
+            pic: "assets/images/hp-title.gif"
+        },
+    
+    
+    
+    
+    
+    
+    
+    
 
     ];
 
