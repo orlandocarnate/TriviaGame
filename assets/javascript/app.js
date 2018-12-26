@@ -7,6 +7,7 @@ $(document).ready(function () {
     var maxQuestions = 5;
     var timer;
     var maxtime = 10;
+    var transitionTime = 5;
     var currentTrivia;
 
     // Trivia data. First Property is the question. Second Property is a list of possible anwsers.
@@ -234,6 +235,7 @@ $(document).ready(function () {
         $("#answers").empty();
         $("#endtext").hide();
         $("#picAnswer").empty();
+        $("#transition").hide();
 
         if (currentQuestionIndex < maxQuestions) {
             displayQuestion();
@@ -284,6 +286,33 @@ $(document).ready(function () {
 
     }
 
+    function nextTimer() {
+        // create a transition timer
+        var time = transitionTime;
+        $("#transition-time").text(time + " seconds");
+        var transitiontimer = window.setInterval(function () {
+            time--;
+            $("#transition-time").text( time + " seconds");
+            if (time <= 0) {
+                window.clearInterval(transitiontimer);
+            }
+        }, 1000)
+
+    }
+
+    function isLastQuestion() {
+        $("#transition").show();
+        // if there are still questions left, tell player the next question will be in 5 seconds
+        if (currentQuestionIndex < maxQuestions) {
+            $("#transition-text").text("Next Question in " + time + " seconds");
+
+        } else {
+            $("#transition-text").text("Let's see your score in " + time + " seconds");
+        }
+        nextTimer();
+        askQuestion();
+    }
+
     function restartGame() {
         // clear any generated elements with empty() method
         correct = 0;
@@ -302,8 +331,9 @@ $(document).ready(function () {
     }
 
     function endGame() {
-        // clear all elements
+        // clear or hide all elements
         $("#time-remaining").hide();
+        $("#transition").hide();
 
         // display final tally
         $("#endtext").show();
