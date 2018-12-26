@@ -207,8 +207,8 @@ $(document).ready(function () {
         if (currentTrivia.answer === parseInt(arg)) {
             // tell player is correct and add to correct counter.
             correct++;
-            $("#question").text("Correct!");
-            $("#answers").text("");
+            $("#question").text('Correct!');
+            $("#answers").html('You Picked <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"</strong></h4>');
 
             // display pic
             var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
@@ -217,7 +217,7 @@ $(document).ready(function () {
             // tell player is wrong and add to wrong counter.
             wrong++;
             $("#question").text("Wrong Answer.");
-            $("#answers").text("The correct answer is " + currentTrivia.answers[currentTrivia.answer])
+            $("#answers").html('The correct answer is <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"</strong></h4>');
 
             // display pic
             var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
