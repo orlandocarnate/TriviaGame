@@ -42,4 +42,4 @@ A trivia game that shows only one question until the player answers it or their 
 ## Media 
 
 * [8-Bit Harry Potter](http://www.doctoroctoroc.com/8-bit-harry-potter.php) soundtrack from [Doctor Octoroc](http://www.doctoroctoroc.com)
-
+* Harry Potter MIDI files from [Moviethemes.net](http://moviethemes.net/H1.html)

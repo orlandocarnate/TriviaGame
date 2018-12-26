@@ -4,7 +4,7 @@ $(document).ready(function () {
     var wrong = 0;
     var unanswered = 0;
     var currentQuestion = 0;
-    var maxQuestions = 5;
+    var maxQuestions = 4;
     var currentTrivia;
 
     var timer;
@@ -13,40 +13,37 @@ $(document).ready(function () {
     // Trivia data. First Property is the question. Second Property is a list of possible anwsers.
     var triviaData = [
         {
-            question: "What is...Q0",
-            answers: ["answer0", "answer1", "answer2", "answer3"],
+            question: "Which spell was invented by Severus Snape?",
+            answers: ["Sectumsempra", "Riddikulus", "Steuleus", "Serpensortia"],
             answer: 0,
-            pic: "pic.jpg"
+            // pic: "https://gph.is/28UeI4D"
+            pic: "https://media.giphy.com/media/R2nvBkAW7XIRy/200w_d.gif"
         },
         {
-            question: "What is...Q1",
-            answers: ["answer0", "answer1", "answer2", "answer3"],
-            answer: 1,
-            pic: "pic.jpg"
+            question: "What does Incendio do?",
+            answers: ["Starts a fire", "Polishes an object", "Causes an object to explode", "Nothing, really"],
+            answer: 0,
+            pic: "https://pa1.narvii.com/6208/5abf988735cabd4f4c431fa07f9223d92560b144_hq.gif"
         },
         {
-            question: "What is...Q2",
-            answers: ["answer0", "answer1", "answer2", "answer3"],
+            question: "What type of incantation is Wingardium Leviosa?",
+            answers: ["Spell", "Curse", "Charm", "Jinx"],
             answer: 2,
-            pic: "pic.jpg"
+            // pic: "https://gph.is/16lTO9j"
+            pic: "https://media.giphy.com/media/KGHzRH9EGt5mw/200w_d.gif"
         },
         {
-            question: "What is...Q3",
-            answers: ["answer0", "answer1", "answer2", "answer3"],
-            answer: 3,
-            pic: "pic.jpg"
+            question: "What does Ferula do?",
+            answers: ["Turns the object into stone", "Creates a high-pitched sound", "Creates bandages", "Nothing, really"],
+            answer: 2,
+            // pic: "https://gph.is/2eBjlIB"
+            pic: "https://media.giphy.com/media/11P6dElPROzAbu/200w_d.gif",
         },
         {
-            question: "What is...Q4",
-            answers: ["answer0", "answer1", "answer2", "answer3"],
-            answer: 0,
-            pic: "pic.jpg"
-        },
-        {
-            question: "What is...Q5",
-            answers: ["answer0", "answer1", "answer2", "answer3"],
+            question: "What spell opens objects?",
+            answers: ["Openia", "Alohamora", "Crucio", "Patentibus"],
             answer: 1,
-            pic: "pic.jpg"
+            pic: "https://vignette.wikia.nocookie.net/harrypotter/images/3/3e/Unlocking_charm1.gif"
         },
 
     ];
@@ -88,6 +85,7 @@ $(document).ready(function () {
 
     function displayQuestion() {
         currentTrivia = triviaData[shuffledIndex[currentQuestion]];
+        console.log("Current Question: ", currentQuestion);
         console.log(currentTrivia);
         $("#question").text(currentTrivia.question);
 
@@ -111,12 +109,25 @@ $(document).ready(function () {
         if (currentTrivia.answer === parseInt(arg)) {
             // tell player is correct and add to correct counter.
             correct++;
-            alert("Correct")
+            $("#question").text("Correct!");
+            $("#answers").text("");
+
+            // display pic
+            var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
+            $("#picAnswer").append(answerPic);
+
+
+            // display next question after 5 seconds.
+            setTimeout(askQuestion, 5000);
         } else {
             // tell player is wrong and add to wrong counter.
             wrong++;
             $("#question").text("Wrong Answer.");
-            $("#answers").text("The correct answer is " + currentTrivia.answer)
+            $("#answers").text("The correct answer is " + currentTrivia.answers[currentTrivia.answer])
+
+            // display pic
+            var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
+            $("#picAnswer").append(answerPic);
         }
 
             // display next question after 5 seconds.
@@ -132,6 +143,7 @@ $(document).ready(function () {
         $("#question").empty();
         $("#answers").empty();
         $("#endtext").hide();
+        $("#picAnswer").empty();
 
         if (currentQuestion < maxQuestions) {
 
@@ -153,29 +165,52 @@ $(document).ready(function () {
     // create timer function
     function startTimer(time) {
         $("#time-remaining").show();
-        $("#timer").html(time + " Seconds")
+        $("#timer").html("Time left: " + time + " seconds")
         timer = setInterval(function () {
             --time;
-            $("#timer").html(time + " Seconds")
+            $("#timer").html("Time left: " + time + " seconds");
             if (time <= 0) {
             clearTimeout(timer);
 
             console.log("Times up!")
             // currentQuestion++;
             unanswered++;
-            $("#timer").html(time + " Seconds")
+            $("#timer").html("Time left: " + time + " seconds")
 
             // show correct answer
             $("#question").text("Times Up!");
-            $("#answers").text("The correct answer is " + currentTrivia.answer)
+            $("#answers").html('The correct answer is <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"<strong></h4>')
+
+            // display pic
+            var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
+            $("#picAnswer").append(answerPic);
 
             // display next question after 5 seconds.
             setTimeout(askQuestion, 5000);
             }
         }, 1000);
-        
+    }
 
+    // create next questiontimer function
+    function nextTimer(time) {
+        $("#time-remaining").show();
 
+        if (currentQuestion < maxQuestions) {
+            // show next question timer
+            $("#timer").html("Next Question in " + time + " seconds");
+
+        } else {
+            // show end game timer
+            $("#timer").html("Your score in " + time + " seconds");
+        }
+
+        timer = setInterval(function () {
+            --time;
+            $("#timer").html("Next Question in " + time + " Seconds")
+            if (time <= 0) {
+                endGame();
+            }
+        }, 1000);
     }
 
     function restartGame() {
@@ -225,7 +260,7 @@ $(document).ready(function () {
     });
 
     $("#answers").on('click', '.answer', function() {
-        alert($(this).attr("value"));
+        // alert($(this).attr("value"));
         checkAnswer($(this).attr("value"));
     });
 
