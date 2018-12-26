@@ -10,6 +10,11 @@ $(document).ready(function () {
     var maxtime = 10;
     var transitionTime = 5;
     var currentTrivia;
+    // audio sound
+    var soundList = [
+        "magicspell1.mp3", "magicspell2.mp3", "magicspell3.mp3"
+    ];
+    var soundFX = document.createElement("audio");
 
     // Trivia data. First Property is the question. Second Property is a list of possible anwsers.
     var triviaData = [
@@ -182,6 +187,15 @@ $(document).ready(function () {
         console.log("Result:",shuffledIndex);
     }
 
+    function randomFX() {
+        randomIndex = Math.floor(Math.random() * soundList.length);
+        var fxSource = "assets/sounds/" + soundList[randomIndex];
+        console.log("SoundFX path: ", fxSource);
+        soundFX.setAttribute("src", fxSource)
+        soundFX.play();
+    }
+
+
     function displayQuestion() {
         currentTrivia = triviaData[shuffledIndex[currentQuestionIndex]];
         console.log("Current Q number: ", currentQuestionIndex);
@@ -211,7 +225,10 @@ $(document).ready(function () {
             // display pic
             var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
             $("#picAnswer").append(answerPic);
+            soundFX.setAttribute("src", "assets/sounds/correct.mp3");
+            soundFX.play();
         } else {
+            randomFX();
             // tell player is wrong and add to wrong counter.
             wrong++;
             $("#question").text("Wrong Answer.");
@@ -268,6 +285,7 @@ $(document).ready(function () {
                 $("#timer").html("Time left: " + time + " seconds")
 
                 // show correct answer
+                randomFX();
                 $("#question").text("Times Up!");
                 $("#answers").html('The correct answer is <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"<strong></h4>')
 
@@ -354,10 +372,12 @@ $(document).ready(function () {
 
     // event listeners
     $("#start").click(function() {
+        randomFX();
         askQuestion();
     });
 
     $("#restart").click(function() {
+        randomFX();
         restartGame();
     });
 
