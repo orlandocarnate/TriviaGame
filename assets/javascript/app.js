@@ -186,6 +186,8 @@ $(document).ready(function () {
 
     // Trivia Game Object
     var triviaGame = {
+
+        // shuffles index numbers to read trivia questions randomly
         shuffle: function () {
             // reset shuffledIndex array
             shuffledIndex = [];
@@ -214,6 +216,7 @@ $(document).ready(function () {
             console.log("Result:",shuffledIndex);
         },
 
+        // random sound fx
         randomFX: function () {
             randomIndex = Math.floor(Math.random() * soundList.length);
             var fxSource = "assets/sounds/" + soundList[randomIndex];
@@ -222,6 +225,7 @@ $(document).ready(function () {
             soundFX.play();
         },
 
+        // displays the question and possible answers from the trivia array
         displayQuestion: function () {
             currentTrivia = triviaData[shuffledIndex[currentQuestionIndex]];
             console.log("Current Q number: ", currentQuestionIndex);
@@ -241,6 +245,7 @@ $(document).ready(function () {
             }
         },
 
+        // determines of there more questions or go to end of game.
         askQuestion: function () {
             // clear any generated elements with empty() method
             $("#question").empty();
@@ -258,8 +263,6 @@ $(document).ready(function () {
     
                 // start countdown timer
                 this.startTimer();
-    
-    
             } 
             // If no more questions left go to endGame method
             else {
@@ -270,6 +273,7 @@ $(document).ready(function () {
     
         },
 
+        // checks the clicked answer if it's correct
         checkAnswer: function (arg) {
             // if passed argument is equal to the answer
             if (currentTrivia.answer === parseInt(arg)) {
@@ -301,13 +305,11 @@ $(document).ready(function () {
             }
     
                 // see if this is the last question
-                this.isLastQuestion();
+                this.nextTimerHeadiing();
         },
 
-
-
+        // countdown timer
         startTimer: function () {
-
             // assign max time to time
             var time = maxtime;
 
@@ -340,7 +342,7 @@ $(document).ready(function () {
                     $("#picAnswer").append(answerPic);
     
                     // check if the next question is the last
-                    triviaGame.isLastQuestion();
+                    triviaGame.nextTimerHeadiing();
                 }
     
             }, 1000);
@@ -374,9 +376,7 @@ $(document).ready(function () {
             }, 1000)
         },
 
-        isLastQuestion: function () {
-            console.log("isLastQuestion called");
-    
+        nextTimerHeadiing: function () {
             // if there are still questions left, tell player the next question will be in 5 seconds
             if (currentQuestionIndex < maxQuestions) {
                 $("#transition-text").text("Next Question in ");
