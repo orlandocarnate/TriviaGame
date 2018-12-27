@@ -4,7 +4,7 @@ $(document).ready(function () {
     var wrong = 0;
     var unanswered = 0;
     var currentQuestionIndex = 0;
-    var maxQuestions = 5;
+    var maxQuestions = 10;
     var timer;
     var transitiontimer;
     var maxtime = 10;
@@ -96,7 +96,7 @@ $(document).ready(function () {
             pic: "https://media.giphy.com/media/f0OjjIH6I68GA/giphy-downsized.gif"
         },
         {
-            question: "Who is Hagrid?",
+            question: "Who is Hagrid?", // FIX
             answers: [
                 "A Spider", 
                 "An Elephant", 
@@ -141,14 +141,39 @@ $(document).ready(function () {
             answer: 3, // MUST BE A NUMBER FROM 0-3
             pic: "https://media.giphy.com/media/WLXYBlFuBiuQM/giphy.gif"
         },
-    
-    
-    
-    
-    
-    
-    
-    
+        {
+            question: "What is Felix Felicis?",
+            answers: [
+                "Potion of Love", 
+                "Potion of Death", 
+                "Potion of Resistance", 
+                "Potion of Luck"
+                ],
+            answer: 3, // MUST BE A NUMBER FROM 0-3
+            pic: "https://media.giphy.com/media/WLXYBlFuBiuQM/giphy.gif"
+        },
+    	{
+            question: "What does the spell Lumos do?",
+            answers: [
+                "Creates Light", 
+                "Creates Fire", 
+                "Creates Ice", 
+                "Creates Darkness"
+                ],
+            answer: 0, // MUST BE A NUMBER FROM 0-3
+            pic: "https://media.giphy.com/media/Q8WGAVxruhAIg/giphy-downsized.gif"
+        },
+    	{
+            question: "What does the curse Avada Kedavra do?",
+            answers: [
+                "A Curse of Fire", 
+                "A Curse Of Light", 
+                "A Killing Curse", 
+                "A Curse Of Slime"
+                ],
+            answer: 2, // MUST BE A NUMBER FROM 0-3
+            pic: "https://media.giphy.com/media/rMYBNQ6LfVV5u/giphy-downsized.gif"
+        },
 
     ];
 
