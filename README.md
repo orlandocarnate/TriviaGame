@@ -37,7 +37,7 @@ A trivia game that shows only one question until the player answers it or their 
     * Use .on() with already existing parent elements and reference the id or class
     * EX: 
         * `$("#answers").on("click", ".answer", function() {...})`
-
+* `this.method() does not work in `setInterval` because `setInterval` and `setTimeout` are `Window` methods
 
 ## Media 
 

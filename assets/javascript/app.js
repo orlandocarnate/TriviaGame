@@ -10,10 +10,12 @@ $(document).ready(function () {
     var maxtime = 10;
     var transitionTime = 5;
     var currentTrivia;
+    // create empty array for the shuffled indexes
+    var shuffledIndex = [];
     // audio sound
     var soundList = [
-        "magicspell1.mp3", "magicspell2.mp3", "magicspell3.mp3"
-    ];
+            "magicspell1.mp3", "magicspell2.mp3", "magicspell3.mp3"
+        ];
     var soundFX = document.createElement("audio");
 
     // Trivia data. First Property is the question. Second Property is a list of possible anwsers.
@@ -177,239 +179,272 @@ $(document).ready(function () {
 
     ];
 
-    // create empty array for the shuffled indexes
-    var shuffledIndex = [];
-
+    // hide text
     $("#restart").hide();
     $("#endtext").hide();
     $("#time-remaining").hide();
 
-    function shuffle() {
-        // reset shuffledIndex array
-        shuffledIndex = [];
-        console.log("Current:", shuffledIndex);
-        // create an array with item numbers based on length of trivia data
-        for (var i=0; i < triviaData.length; i++) {
-            shuffledIndex.push(i);
-        }
-        console.log("Shuffled: ",shuffledIndex);
+    // Trivia Game Object
+    var triviaGame = {
+        shuffle: function () {
+            // reset shuffledIndex array
+            shuffledIndex = [];
+            console.log("Current:", shuffledIndex);
+            // create an array with item numbers based on length of trivia data
+            for (var i=0; i < triviaData.length; i++) {
+                shuffledIndex.push(i);
+            }
+            console.log("Shuffled: ",shuffledIndex);
+    
+    
+            // gets the length 
+            var randomIndex;
+            var tempItem;
+            for (i = shuffledIndex.length - 1; i > 0; i--) {
+                randomIndex = Math.floor(Math.random() * (i+1));
+                // copy current item in index i
+                tempItem = shuffledIndex[i];
+                // copy random item to current index i in array
+                shuffledIndex[i] = shuffledIndex[randomIndex];
+                // copy temp item to random index
+                shuffledIndex[randomIndex] = tempItem;
+                console.log(shuffledIndex);
+    
+            }
+            console.log("Result:",shuffledIndex);
+        },
 
-
-        // gets the length 
-        var randomIndex;
-        var tempItem;
-        for (i = shuffledIndex.length - 1; i > 0; i--) {
-            randomIndex = Math.floor(Math.random() * (i+1));
-            // copy current item in index i
-            tempItem = shuffledIndex[i];
-            // copy random item to current index i in array
-            shuffledIndex[i] = shuffledIndex[randomIndex];
-            // copy temp item to random index
-            shuffledIndex[randomIndex] = tempItem;
-            console.log(shuffledIndex);
-
-        }
-        console.log("Result:",shuffledIndex);
-    }
-
-    function randomFX() {
-        randomIndex = Math.floor(Math.random() * soundList.length);
-        var fxSource = "assets/sounds/" + soundList[randomIndex];
-        console.log("SoundFX path: ", fxSource);
-        soundFX.setAttribute("src", fxSource)
-        soundFX.play();
-    }
-
-
-    function displayQuestion() {
-        currentTrivia = triviaData[shuffledIndex[currentQuestionIndex]];
-        console.log("Current Q number: ", currentQuestionIndex);
-        console.log("Current Trivia data:",currentTrivia);
-        console.log("Current Q", currentTrivia.question);
-        console.log(currentTrivia);
-        $("#question").text(currentTrivia.question);
-
-        for (var i=0; i < currentTrivia.answers.length; i++) {
-            console.log(currentTrivia.answers[i]);
-            answerID = i;
-            var answerListItem = $("<div/>", {"class": "answer", "value": i, text: currentTrivia.answers[i]});
-            $("#answers").append(answerListItem);
-        }
-        //display possible answers with values for onclick events
-
-    }
-
-    function checkAnswer(arg) {
-        // if passed argument is equal to the answer
-        if (currentTrivia.answer === parseInt(arg)) {
-            // tell player is correct and add to correct counter.
-            correct++;
-            $("#question").text('Correct!');
-            $("#answers").html('You Picked <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"</strong></h4>');
-
-            // display pic
-            var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
-            $("#picAnswer").append(answerPic);
-            soundFX.setAttribute("src", "assets/sounds/correct.mp3");
+        randomFX: function () {
+            randomIndex = Math.floor(Math.random() * soundList.length);
+            var fxSource = "assets/sounds/" + soundList[randomIndex];
+            console.log("SoundFX path: ", fxSource);
+            soundFX.setAttribute("src", fxSource)
             soundFX.play();
-        } else {
-            randomFX();
-            // tell player is wrong and add to wrong counter.
-            wrong++;
-            $("#question").text("Wrong Answer.");
-            $("#answers").html('The correct answer is <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"</strong></h4>');
+        },
 
-            // display pic
-            var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
-            $("#picAnswer").append(answerPic);
-        }
+        displayQuestion: function () {
+            currentTrivia = triviaData[shuffledIndex[currentQuestionIndex]];
+            console.log("Current Q number: ", currentQuestionIndex);
+            console.log("Current Trivia data:",currentTrivia);
+            console.log("Current Q", currentTrivia.question);
+            console.log(currentTrivia);
 
-            // see if this is the last question
-            isLastQuestion();
-    }
+            // show the trivia question
+            $("#question").text(currentTrivia.question);
+    
+            // use for loop to display possible answers
+            for (var i=0; i < currentTrivia.answers.length; i++) {
+                console.log(currentTrivia.answers[i]);
+                answerID = i;
+                var answerListItem = $("<div/>", {"class": "answer", "value": i, text: currentTrivia.answers[i]});
+                $("#answers").append(answerListItem);
+            }
+        },
 
-    function askQuestion() {
-        // clear any generated elements with empty() method
-        $("#question").empty();
-        $("#answers").empty();
-        $("#endtext").hide();
-        $("#picAnswer").empty();
-        $("#transition").hide();
+        askQuestion: function () {
+            // clear any generated elements with empty() method
+            $("#question").empty();
+            $("#answers").empty();
+            $("#endtext").hide();
+            $("#picAnswer").empty();
+            $("#transition").hide();
+    
+            // Continue game if there are still questions
+            if (currentQuestionIndex < maxQuestions) {
+                this.displayQuestion();
+                currentQuestionIndex++;
+                // hide start
+                $("#start").hide();
+    
+                // start countdown timer
+                this.startTimer();
+    
+    
+            } 
+            // If no more questions left go to endGame method
+            else {
+                // goto endGame
+                this.endGame();
+            }
+    
+    
+        },
 
-        if (currentQuestionIndex < maxQuestions) {
-            displayQuestion();
-            currentQuestionIndex++;
-            // hide start
-            $("#start").hide();
-
-            startTimer();
-
-
-        } else {
-            // goto endGame
-            endGame();
-        }
-
-
-    }
-
-    // create timer function
-    function startTimer() {
-        var time = maxtime;
-        $("#time-remaining").show();
-        $("#timer").html("Time left: " + time + " seconds")
-        timer = setInterval(function () {
-            time--;
-            console.log("time:", time);
-            console.log("Current Q: ", currentQuestionIndex);
-            $("#timer").html("Time left: " + time + " seconds");
-            if (time <= 0) {
-                clearInterval(timer);
-
-                unanswered++;
-                $("#timer").html("Time left: " + time + " seconds")
-
-                // show correct answer
-                randomFX();
-                $("#question").text("Times Up!");
-                $("#answers").html('The correct answer is <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"<strong></h4>')
-
+        checkAnswer: function (arg) {
+            // if passed argument is equal to the answer
+            if (currentTrivia.answer === parseInt(arg)) {
+                // tell player is correct and add to CORRECT score.
+                correct++;
+                $("#question").text('Correct!');
+                $("#answers").html('You Picked <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"</strong></h4>');
+    
                 // display pic
                 var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
                 $("#picAnswer").append(answerPic);
 
-                // display next question after 5 seconds.
-                isLastQuestion();
+                // play a Correct Sound
+                soundFX.setAttribute("src", "assets/sounds/correct.mp3");
+                soundFX.play();
+            } 
+            // Wrong Answer
+            else {
+                // play random sound
+                this.randomFX();
+                // tell player is wrong and add to Wrong score.
+                wrong++;
+                $("#question").text("Wrong Answer.");
+                $("#answers").html('The correct answer is <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"</strong></h4>');
+    
+                // display pic
+                var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
+                $("#picAnswer").append(answerPic);
             }
+    
+                // see if this is the last question
+                this.isLastQuestion();
+        },
 
-        }, 1000);
 
-    }
 
-    function nextTimer() {
-        $("#transition").show();
-        console.log("nextTimer called");
-        // create a transition timer
-        var transTime = transitionTime;
-        console.log("Trans Time: ", transTime);
-        $("#transition-time").text(transTime + " seconds");
-        transitiontimer = setInterval(function () {
-            transTime--;
+        startTimer: function () {
+
+            // assign max time to time
+            var time = maxtime;
+
+            // display time remaining
+            $("#time-remaining").show();
+            $("#timer").html("Time left: " + time + " seconds");
+
+            // start interval timer
+            timer = setInterval(function () {
+                time--;
+                console.log("time:", time);
+                console.log("Current Q: ", currentQuestionIndex);
+                $("#timer").html("Time left: " + time + " seconds");
+
+                // stop timer if time is 0
+                if (time === 0) {
+                    clearInterval(timer);
+
+                    // add to Unanswered score
+                    unanswered++;
+                    $("#timer").html("Time left: " + time + " seconds")
+    
+                    // show correct answer
+                    triviaGame.randomFX();
+                    $("#question").text("Times Up!");
+                    $("#answers").html('The correct answer is <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"<strong></h4>')
+    
+                    // display pic
+                    var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
+                    $("#picAnswer").append(answerPic);
+    
+                    // check if the next question is the last
+                    triviaGame.isLastQuestion();
+                }
+    
+            }, 1000);
+    
+        },
+
+        // a transition timer between questions
+        nextTimer: function () {
+            console.log("Trans Time: ", transTime);
+
+            // set the time count
+            var transTime = transitionTime;
+
+            // unhide the transition row
+            $("#transition").show();
+            $("#transition-time").text(transTime + " seconds");
+
+            // set timer
+            transitiontimer = setInterval(function () {
+                // update timer
+                transTime--;
+                $("#transition-time").text( transTime + " seconds");
+
+                // stop timer at 0
+                if (transTime === 0) {
+                    clearInterval(transitiontimer);
+
+                    // display next question
+                    triviaGame.askQuestion();
+                }
+            }, 1000)
+        },
+
+        isLastQuestion: function () {
+            console.log("isLastQuestion called");
+    
+            // if there are still questions left, tell player the next question will be in 5 seconds
+            if (currentQuestionIndex < maxQuestions) {
+                $("#transition-text").text("Next Question in ");
+    
+            // if it was the last question then tell player score is next in 5 seconds
+            } else {
+                $("#transition-text").text("Let's see your score in ");
+            }
             
-            $("#transition-time").text( transTime + " seconds");
-            if (transTime <= 0) {
-                clearInterval(transitiontimer);
-                askQuestion();
-            }
-        }, 1000)
+            //  run the transition timer
+            this.nextTimer();
+        },
+
+        restartGame: function () {
+            // clear any generated elements with empty() method
+            correct = 0;
+            wrong = 0;
+            unanswered = 0;
+            currentQuestionIndex = 0;
+            currentTrivia = 0;
+    
+            // hide button
+            $("#restart").hide();
+    
+            // shuffle a new index array
+            this.shuffle();
+            
+            // display the trivia question
+            this.askQuestion();
+    
+        },
+
+        endGame: function () {
+            // clear or hide all elements
+            $("#time-remaining").hide();
+            $("#transition").hide();
+    
+            // display final tally
+            $("#endtext").show();
+    
+            $("#correct").text(correct);
+            $("#wrong").text(wrong);
+            $("#unanswered").text(unanswered);
+    
+            // display restart button
+            $("#restart").show();
+    
+        },
     }
-
-    function isLastQuestion() {
-        console.log("isLastQuestion called");
-
-        // if there are still questions left, tell player the next question will be in 5 seconds
-        if (currentQuestionIndex < maxQuestions) {
-            $("#transition-text").text("Next Question in ");
-
-        } else {
-            $("#transition-text").text("Let's see your score in ");
-        }
-        nextTimer();
-    }
-
-    function restartGame() {
-        // clear any generated elements with empty() method
-        correct = 0;
-        wrong = 0;
-        unanswered = 0;
-        currentQuestionIndex = 0;
-        currentTrivia = 0;
-
-        // hide button
-        $("#restart").hide();
-
-
-        shuffle();
-        askQuestion();
-
-    }
-
-    function endGame() {
-        // clear or hide all elements
-        $("#time-remaining").hide();
-        $("#transition").hide();
-
-        // display final tally
-        $("#endtext").show();
-
-        $("#correct").text(correct);
-        $("#wrong").text(wrong);
-        $("#unanswered").text(unanswered);
-
-        // display restart button
-        $("#restart").show();
-
-    }
-
 
     // shuffle the trivia
-    shuffle();
+    triviaGame.shuffle();
 
     // event listeners
     $("#start").click(function() {
-        randomFX();
-        askQuestion();
+        triviaGame.randomFX();
+        triviaGame.askQuestion();
     });
 
     $("#restart").click(function() {
-        randomFX();
-        restartGame();
+        triviaGame.randomFX();
+        triviaGame.restartGame();
     });
 
     $("#answers").on('click', '.answer', function() {
         // alert($(this).attr("value"));
         clearInterval(timer);
-        checkAnswer($(this).attr("value"));
+        triviaGame.checkAnswer($(this).attr("value"));
     });
 
 
