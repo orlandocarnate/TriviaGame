@@ -351,11 +351,9 @@ $(document).ready(function () {
 
         // a transition timer between questions
         nextTimer: function () {
-            console.log("Trans Time: ", transTime);
-
             // set the time count
             var transTime = transitionTime;
-
+            console.log("Trans Time: ", transTime);
             // unhide the transition row
             $("#transition").show();
             $("#transition-time").text(transTime + " seconds");
