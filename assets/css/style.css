@@ -8,7 +8,7 @@ body {
 
 .container {
     background-image: url("../images/papyrus-background-md.jpg");
-    background-size: 100% auto;
+    /* background-size: 100% auto; */
     min-height: 100vh;
     box-shadow: 0px 0px 50px #000000;
     /* background-size: cover; */
@@ -41,10 +41,10 @@ body {
   }
 
 .pic {
-    /* width: 480px;
-    height: 320px;
+    width: 75%;
+    height: auto;
     object-fit: cover;
-    object-position: center; */
+    object-position: center;
     border-radius: 20px;
     box-shadow: 4px 4px 8px #000000;
 }
