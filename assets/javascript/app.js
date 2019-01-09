@@ -7,8 +7,8 @@ $(document).ready(function () {
     var maxQuestions = 10;
     var timer;
     var transitiontimer;
-    var maxtime = 10;
-    var transitionTime = 5;
+    var maxtime = 15;
+    var transitionTime = 7;
     var currentTrivia;
     // create empty array for the shuffled indexes
     var shuffledIndex = [];
@@ -232,6 +232,12 @@ $(document).ready(function () {
             }
         },
 
+        // display pic
+        displayPic: function (arg) {
+            var answerPic = $("<img/>", {"class": "pic img-fluid", "src": arg});
+            $("#picAnswer").append(answerPic);
+        },
+
         // determines of there more questions or go to end of game.
         askQuestion: function () {
             // clear any generated elements with empty() method
@@ -270,8 +276,9 @@ $(document).ready(function () {
                 $("#answers").html('You Picked <h5><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"</strong></h4>');
     
                 // display pic
-                var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
-                $("#picAnswer").append(answerPic);
+                this.displayPic(currentTrivia.pic);
+                // var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
+                // $("#picAnswer").append(answerPic);
 
                 // play a Correct Sound
                 soundFX.setAttribute("src", "assets/sounds/correct.mp3");
@@ -287,8 +294,9 @@ $(document).ready(function () {
                 $("#answers").html('The correct answer is <h5><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"</strong></h5>');
     
                 // display pic
-                var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
-                $("#picAnswer").append(answerPic);
+                this.displayPic(currentTrivia.pic);
+                // var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
+                // $("#picAnswer").append(answerPic);
             }
     
                 // see if this is the last question
@@ -325,8 +333,9 @@ $(document).ready(function () {
                     $("#answers").html('The correct answer is <h5><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"<strong></h4>')
     
                     // display pic
-                    var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
-                    $("#picAnswer").append(answerPic);
+                    triviaGame.displayPic(currentTrivia.pic);
+                    // var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
+                    // $("#picAnswer").append(answerPic);
     
                     // check if the next question is the last
                     triviaGame.nextTimerHeadiing();

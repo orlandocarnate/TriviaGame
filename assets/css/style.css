@@ -3,19 +3,33 @@ body {
     /* background-size: cover; */
     /* font-family: 'Alegreya', serif; */
     font-family: 'Amiri', serif;
-    font-size: 16pt;
+    font-size: 20pt;
 }
 
 .container {
     background-image: url("../images/papyrus-background-md.jpg");
-    height: 100vh;
-    width: 90%;
+    background-size: 100% auto;
+    min-height: 100vh;
     box-shadow: 0px 0px 50px #000000;
     /* background-size: cover; */
 }
 
-h1, h2, h3, h4, h5, h6 {
+.title, h1, h2, h3, h4, h5, h6 {
     font-family: 'Cinzel', serif;
+}
+
+.title {
+    /* font-size: 3.5vw; */
+    font-weight: bold;
+}
+
+#question {
+    /* font-size: 2vw; */
+    font-weight: bold;
+}
+
+#timer {
+    font-size: 20pt;
 }
 
 .answer {
@@ -27,10 +41,10 @@ h1, h2, h3, h4, h5, h6 {
   }
 
 .pic {
-    width: 240px;
-    height: 200px;
+    /* width: 480px;
+    height: 320px;
     object-fit: cover;
-    object-position: center;
+    object-position: center; */
     border-radius: 20px;
     box-shadow: 4px 4px 8px #000000;
 }
@@ -38,3 +52,17 @@ h1, h2, h3, h4, h5, h6 {
 .btn {
     font-size: 24pt;
 }
+/* 
+@media screen and (max-width: 320px) {
+    .title {
+        font-size: 12pt;
+    }
+    #timer {
+        font-size: 16pt;
+    }
+
+    .pic {
+        width: 240px;
+        height: 200px;
+    }
+} */
