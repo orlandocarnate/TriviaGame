@@ -1,14 +1,21 @@
 body {
-    background-image: url("../images/papyrus-background-md.jpg");
-    background-size: cover;
+    background-image: url("../images/dark_embroidery.png");
+    /* background-size: cover; */
     /* font-family: 'Alegreya', serif; */
     font-family: 'Amiri', serif;
-    font-size: 20pt;
+    font-size: 16pt;
+}
+
+.container {
+    background-image: url("../images/papyrus-background-md.jpg");
+    height: 100vh;
+    width: 90%;
+    box-shadow: 0px 0px 50px #000000;
+    /* background-size: cover; */
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Cinzel', serif;
-    
 }
 
 .answer {
@@ -20,11 +27,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 
 .pic {
-    width: 300px;
-    height: 260px;
+    width: 240px;
+    height: 200px;
     object-fit: cover;
     object-position: center;
     border-radius: 20px;
+    box-shadow: 4px 4px 8px #000000;
 }
 
 .btn {

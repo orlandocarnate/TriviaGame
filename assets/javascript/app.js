@@ -108,7 +108,6 @@ $(document).ready(function () {
             answer: 2, // MUST BE A NUMBER FROM 0-3
             pic: "https://media.giphy.com/media/5zdcxaljX66mQ/giphy-downsized.gif"
         },
-        /* SPOILER
         {
             question: "Who killed Dumbledore?",
             answers: [
@@ -120,7 +119,6 @@ $(document).ready(function () {
             answer: 1, // MUST BE A NUMBER FROM 0-3
             pic: "https://media.giphy.com/media/OHNvxhuOdR1te/giphy-downsized.gif"
         },
-        */
         {
             question: "Who was Severus Snape in love with?",
             answers: [
@@ -131,17 +129,6 @@ $(document).ready(function () {
                 ],
             answer: 2, // MUST BE A NUMBER FROM 0-3
             pic: "https://media.giphy.com/media/qEabWrZXscSTm/giphy.gif"
-        },
-        {
-            question: "What is Felix Felicis?",
-            answers: [
-                "Potion of Love", 
-                "Potion of Death", 
-                "Potion of Resistance", 
-                "Potion of Luck"
-                ],
-            answer: 3, // MUST BE A NUMBER FROM 0-3
-            pic: "https://media.giphy.com/media/WLXYBlFuBiuQM/giphy.gif"
         },
         {
             question: "What is Felix Felicis?",
@@ -280,7 +267,7 @@ $(document).ready(function () {
                 // tell player is correct and add to CORRECT score.
                 correct++;
                 $("#question").text('Correct!');
-                $("#answers").html('You Picked <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"</strong></h4>');
+                $("#answers").html('You Picked <h5><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"</strong></h4>');
     
                 // display pic
                 var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
@@ -297,7 +284,7 @@ $(document).ready(function () {
                 // tell player is wrong and add to Wrong score.
                 wrong++;
                 $("#question").text("Wrong Answer.");
-                $("#answers").html('The correct answer is <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"</strong></h4>');
+                $("#answers").html('The correct answer is <h5><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"</strong></h5>');
     
                 // display pic
                 var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
@@ -335,7 +322,7 @@ $(document).ready(function () {
                     // show correct answer
                     triviaGame.randomFX();
                     $("#question").text("Times Up!");
-                    $("#answers").html('The correct answer is <h4><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"<strong></h4>')
+                    $("#answers").html('The correct answer is <h5><strong>"' + currentTrivia.answers[currentTrivia.answer] + '"<strong></h4>')
     
                     // display pic
                     var answerPic = $("<img/>", {"class": "pic", "src": currentTrivia.pic});
