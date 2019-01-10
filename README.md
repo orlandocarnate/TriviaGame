@@ -1,5 +1,6 @@
 # TriviaGame
-A trivia game that shows only one question until the player answers it or their time runs out
+A trivia game that shows only one question until the player answers it or their time runs out.
+Questions and Answers were provided by my son and niece who are big Harry Potter fans.
 
 ## Gameplay
 * You'll create a trivia game that shows only one question until the player answers it or their time runs out.

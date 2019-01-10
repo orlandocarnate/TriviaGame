@@ -18,9 +18,11 @@ $(document).ready(function () {
     music.setAttribute("src", "assets/sounds/fairytale1.mp3");
     music.volume = 0.25;
     music.loop = true;
+
     endMusic.setAttribute("src", "assets/sounds/intro.mp3");
     endMusic.volume = 1;
     endMusic.loop = true;
+
     soundFX.volume = 0.75;
 
     // Trivia data. First Property is the question. Second Property is a list of possible anwsers.
@@ -130,8 +132,13 @@ $(document).ready(function () {
     });
 
     $("#restart").click(function() {
-        triviaGame.randomFX();
+        soundFX.setAttribute("src", "assets/sounds/correct.mp3");
+        soundFX.play();
+        endMusic.pause();
+        music.currentTime = 0;
+        music.play()
         triviaGame.restartGame();
+        
     });
 
     $("#answers").on('click', '.answer', function() {
@@ -355,6 +362,7 @@ $(document).ready(function () {
 
         endGame: function () {
             music.pause();
+            endMusic.currentTime = 0;
             endMusic.play();
             // clear or hide all elements
             $("#time-remaining").hide();
