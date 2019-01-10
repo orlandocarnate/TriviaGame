@@ -11,6 +11,8 @@ $(document).ready(function () {
     var transitionTime = 7;
     var currentTrivia;
     var shuffledIndex = []; // create empty array for the shuffled indexes
+
+    // Sound setup
     var soundList = ["assets/sounds/wrong1.mp3", "assets/sounds/wrong2.mp3"];
     var soundFX = document.createElement("audio"); // create audio element in the Document
     var music = document.createElement("audio");
@@ -18,11 +20,9 @@ $(document).ready(function () {
     music.setAttribute("src", "assets/sounds/fairytale1.mp3");
     music.volume = 0.25;
     music.loop = true;
-
     endMusic.setAttribute("src", "assets/sounds/intro.mp3");
     endMusic.volume = 1;
     endMusic.loop = true;
-
     soundFX.volume = 0.75;
 
     // Trivia data. First Property is the question. Second Property is a list of possible anwsers.
@@ -132,26 +132,19 @@ $(document).ready(function () {
     });
 
     $("#restart").click(function() {
-        soundFX.setAttribute("src", "assets/sounds/correct.mp3");
-        soundFX.play();
-        endMusic.pause();
-        music.currentTime = 0;
-        music.play()
         triviaGame.restartGame();
         
     });
 
     $("#answers").on('click', '.answer', function() {
-        clearInterval(timer);
         triviaGame.checkAnswer($(this).attr("value"));
     });
 
+    // mouseover FX
     $("#answers").on('mouseover', '.answer', function() {
-        // alert("mouseover");
         $(this).animate({"font-size": "26pt"}, "fast");
     });
     $("#answers").on('mouseleave', '.answer', function() {
-        // alert("mouseover");
         $(this).animate({"font-size": "20pt"}, "fast");
     });
 
@@ -233,6 +226,7 @@ $(document).ready(function () {
 
         // checks the clicked answer if it's correct
         checkAnswer: function (arg) {
+            clearInterval(timer);
             // if passed argument is equal to the answer
             if (currentTrivia.answer === parseInt(arg)) {
                 // tell player is correct and add to CORRECT score.
@@ -349,6 +343,12 @@ $(document).ready(function () {
             unanswered = 0;
             currentQuestionIndex = 0;
             currentTrivia = 0;
+
+            soundFX.setAttribute("src", "assets/sounds/correct.mp3");
+            soundFX.play();
+            endMusic.pause();
+            music.currentTime = 0;
+            music.play()
     
             // hide button
             $("#restart").hide();
