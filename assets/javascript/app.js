@@ -117,6 +117,30 @@ $(document).ready(function () {
             answer: 2,
             pic: "https://media.giphy.com/media/rMYBNQ6LfVV5u/giphy-downsized.gif"
         },
+        {
+            question: "Who is the head of the House of Gryffindor?",
+            answers: ["Minerva McGonagall",  "Celestina Warbeck", "Godric Gryffindor", "Helga Hufflepuff"],
+            answer: 0,
+            pic: "https://media.giphy.com/media/kDWbmeiUFMx6EOfQti/giphy.gif"
+        },
+        {
+            question: "Who is the ghost of the House of Hufflepuff?",
+            answers: ["Minerva McGonagall",  "Pomona Sprout", "Fat Friar", "Helga Hufflepuff"],
+            answer: 2,
+            pic: "http://pa1.narvii.com/5894/1d2ff4c1d0cb863d6933b6941498a8f39bec9120_hq.gif"
+        },
+        {
+            question: "What is the emblematic animal of the House of Slytherin?",
+            answers: ["a badger",  "a lion", "a squirdle", "a snake"],
+            answer: 3,
+            pic: "https://media.giphy.com/media/NcAIyreaZovjq/giphy.gif"
+        },
+        {
+            question: "What house values intelligence, knowledge, and wit?",
+            answers: ["House of Hufflepuff",  "House of Ravenclaw ", "House of Slytherin", "House of Pancakes"],
+            answer: 1,
+            pic: "https://media.giphy.com/media/lKYMj63WqlBcc/giphy.gif"
+        },
 
     ];
 
